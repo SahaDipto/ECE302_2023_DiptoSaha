@@ -1,0 +1,238 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ECE302_proj2</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-03-08"><meta name="DC.source" content="ECE302_proj2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">clc;
+clear;
+close <span class="string">all</span>;
+</pre><pre class="codeinput"><span class="comment">%specifying the number of iterations for the entire projects</span>
+n = 1e5;
+
+<span class="comment">%Specifiyin bounds of X and Y for their generation</span>
+Y_bounds = [-1 1];
+W_bounds = [-2 2];
+
+<span class="comment">%This is for calculating the MMSE estimate</span>
+edges_mmse = [-3, -1, 1, 3];
+
+<span class="comment">%Theoretical values to compare to</span>
+MSE_mmse_correct = 1/4;
+MSE_llse_correct = 4/15;
+
+[Y_mmse, sigma_2_mmse, Y_llse, sigma_2_llse] = MMSE_LLSE_attempt(Y_bounds, W_bounds, edges_mmse, n, 1);
+
+<span class="comment">%Table</span>
+
+type = [<span class="string">"MMSE"</span>; <span class="string">"LMSE"</span>];
+theoreticalMSE = [MSE_mmse_correct; MSE_llse_correct];
+calculatedMSE = [sigma_2_mmse; sigma_2_llse];
+
+table_mse = table(type, theoreticalMSE, calculatedMSE)
+</pre><pre class="codeoutput">
+table_mse =
+
+  2&times;3 table
+
+     type     theoreticalMSE    calculatedMSE
+    ______    ______________    _____________
+
+    "MMSE"          0.25           0.25034   
+    "LMSE"       0.26667            0.2666   
+
+</pre><pre class="codeinput"><span class="comment">%Values to test for the std dev of Y and R</span>
+
+<span class="comment">%This is the most basic case</span>
+sigmay1 = 3;
+sigmar1 = 4;
+
+<span class="comment">%extreme case when signal has a lot of std dev but noise does not</span>
+sigmay2 = 10;
+sigmar2 = 1;
+
+<span class="comment">%extreme case when signal has low std dev and noise has a lot.</span>
+sigmay3 = 1;
+sigmar3 = 10;
+
+<span class="comment">%max range for the number of observations to be used</span>
+rangeforobserv = 100;
+
+<span class="comment">%Auto updating legend</span>
+Legend_str1 = <span class="string">"Experimental \sigma_Y ="</span> + sigmay1 + <span class="string">", \sigma_R = "</span>+ sigmar1;
+Legend_str2 = <span class="string">"Experimental \sigma_Y ="</span> + sigmay2 + <span class="string">", \sigma_R = "</span>+ sigmar2;
+Legend_str3 = <span class="string">"Experimental \sigma_Y ="</span> + sigmay3 + <span class="string">", \sigma_R = "</span>+ sigmar3;
+Legend_str4 = <span class="string">"Theoretical \sigma_Y ="</span> + sigmay1 + <span class="string">", \sigma_R = "</span>+ sigmar1;
+
+Legend_str5 = <span class="string">"Theoretical \sigma_Y ="</span> + sigmay2 + <span class="string">", \sigma_R = "</span>+ sigmar2;
+
+Legend_str6 = <span class="string">"Theoretical \sigma_Y ="</span> + sigmay3 + <span class="string">", \sigma_R = "</span>+ sigmar3;
+</pre><pre class="codeinput"><span class="comment">%MSE calculations</span>
+[MSE_set1, theoreticalMSE_set1] = Observances(sigmay1, sigmar1, n, rangeforobserv);
+[MSE_set2, theoreticalMSE_set2] = Observances(sigmay2, sigmar2, n, rangeforobserv);
+[MSE_set3, theoreticalMSE_set3] = Observances(sigmay3, sigmar3, n, rangeforobserv);
+</pre><pre class="codeinput"><span class="comment">%figure for plotting</span>
+figure;
+hold <span class="string">on</span>;
+plot(1:rangeforobserv, MSE_set1 , <span class="string">'k'</span>);
+plot(1:rangeforobserv, MSE_set2, <span class="string">'b'</span>);
+plot(1:rangeforobserv, MSE_set3, <span class="string">'r'</span>);
+plot(1:rangeforobserv, theoreticalMSE_set1, <span class="string">'kx'</span>);
+plot(1:rangeforobserv, theoreticalMSE_set2,<span class="string">'bx'</span>);
+plot(1:rangeforobserv, theoreticalMSE_set3, <span class="string">'rx'</span>);
+hold <span class="string">off</span>;
+title(<span class="string">"MSE vs # of observations"</span>);
+xlabel(<span class="string">"# of observations"</span>);
+ylabel(<span class="string">"MSE"</span>);
+ylim([0 inf]);
+xlim([0 inf]);
+legend(Legend_str1, Legend_str2, Legend_str3, Legend_str4, Legend_str5, Legend_str6 );
+</pre><img vspace="5" hspace="5" src="ECE302_proj2_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clc;
+clear;
+close all;
+%%
+%specifying the number of iterations for the entire projects
+n = 1e5;
+
+%Specifiyin bounds of X and Y for their generation
+Y_bounds = [-1 1];
+W_bounds = [-2 2];
+
+%This is for calculating the MMSE estimate
+edges_mmse = [-3, -1, 1, 3];
+
+%Theoretical values to compare to
+MSE_mmse_correct = 1/4;
+MSE_llse_correct = 4/15;
+
+[Y_mmse, sigma_2_mmse, Y_llse, sigma_2_llse] = MMSE_LLSE_attempt(Y_bounds, W_bounds, edges_mmse, n, 1);
+
+%Table
+
+type = ["MMSE"; "LMSE"];
+theoreticalMSE = [MSE_mmse_correct; MSE_llse_correct];
+calculatedMSE = [sigma_2_mmse; sigma_2_llse];
+
+table_mse = table(type, theoreticalMSE, calculatedMSE)
+%%
+%Values to test for the std dev of Y and R
+
+%This is the most basic case
+sigmay1 = 3;
+sigmar1 = 4;
+
+%extreme case when signal has a lot of std dev but noise does not
+sigmay2 = 10;
+sigmar2 = 1;
+
+%extreme case when signal has low std dev and noise has a lot.
+sigmay3 = 1;
+sigmar3 = 10;
+
+%max range for the number of observations to be used
+rangeforobserv = 100;
+
+%Auto updating legend
+Legend_str1 = "Experimental \sigma_Y =" + sigmay1 + ", \sigma_R = "+ sigmar1;
+Legend_str2 = "Experimental \sigma_Y =" + sigmay2 + ", \sigma_R = "+ sigmar2;
+Legend_str3 = "Experimental \sigma_Y =" + sigmay3 + ", \sigma_R = "+ sigmar3;
+Legend_str4 = "Theoretical \sigma_Y =" + sigmay1 + ", \sigma_R = "+ sigmar1;
+
+Legend_str5 = "Theoretical \sigma_Y =" + sigmay2 + ", \sigma_R = "+ sigmar2;
+
+Legend_str6 = "Theoretical \sigma_Y =" + sigmay3 + ", \sigma_R = "+ sigmar3;
+
+%%
+%MSE calculations
+[MSE_set1, theoreticalMSE_set1] = Observances(sigmay1, sigmar1, n, rangeforobserv);
+[MSE_set2, theoreticalMSE_set2] = Observances(sigmay2, sigmar2, n, rangeforobserv);
+[MSE_set3, theoreticalMSE_set3] = Observances(sigmay3, sigmar3, n, rangeforobserv);
+
+%% 
+%figure for plotting
+figure;
+hold on;
+plot(1:rangeforobserv, MSE_set1 , 'k');
+plot(1:rangeforobserv, MSE_set2, 'b');
+plot(1:rangeforobserv, MSE_set3, 'r');
+plot(1:rangeforobserv, theoreticalMSE_set1, 'kx');
+plot(1:rangeforobserv, theoreticalMSE_set2,'bx');
+plot(1:rangeforobserv, theoreticalMSE_set3, 'rx');
+hold off;
+title("MSE vs # of observations");
+xlabel("# of observations");
+ylabel("MSE");
+ylim([0 inf]);
+xlim([0 inf]);
+legend(Legend_str1, Legend_str2, Legend_str3, Legend_str4, Legend_str5, Legend_str6 );
+
+
+
+
+##### SOURCE END #####
+--></body></html>

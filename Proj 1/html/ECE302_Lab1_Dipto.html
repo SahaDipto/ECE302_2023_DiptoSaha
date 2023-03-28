@@ -1,0 +1,510 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ECE302_Lab1_Dipto</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-02-22"><meta name="DC.source" content="ECE302_Lab1_Dipto.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Question A</a></li><li><a href="#3">b)</a></li><li><a href="#4">c)</a></li><li><a href="#5">d)</a></li><li><a href="#6">Question 2</a></li><li><a href="#7">part b</a></li><li><a href="#8">part C</a></li><li><a href="#9">Part D</a></li><li><a href="#10">graph for remaining goblin health after 5 out of 6 goblins are dead</a></li><li><a href="#11">Part E</a></li><li><a href="#13">Shiva, weapon distribution</a></li><li><a href="#14">Functions</a></li></ul></div><pre class="codeinput">clear;
+close;
+</pre><h2 id="2">Question A</h2><pre class="codeinput"><span class="comment">%a)</span>
+<span class="comment">% The total number of combinations is 216, and the only combination that can</span>
+<span class="comment">% give 18 is rolling three 6's which is 1/216.</span>
+n = 1e7;
+prob1t = dicegenpro(18, n, 3, 6, 1, 1);
+</pre><h2 id="3">b)</h2><pre class="codeinput"><span class="comment">%Since there are three dice rolls now, the probability increases to 4/216,</span>
+<span class="comment">%which is shown in the demo.</span>
+<span class="comment">% prob_partb = dicegen(18, n, 3, 6, 3);</span>
+
+prob_partb1 = dicegenpro(18, n, 3, 6, 3, 1);
+</pre><h2 id="4">c)</h2><pre class="codeinput"><span class="comment">%It is (4/216)^6, it is hard to simulate because it would take too long</span>
+n_c = 1e12;
+prob_partc = dicegenpro(18, n, 3, 6, 3, 6);
+</pre><h2 id="5">d)</h2><pre class="codeinput"><span class="comment">%The probability of rolling the most average person using the fun way is</span>
+<span class="comment">%incredibly low and is around 0%</span>
+chance = 0;
+stat = 0;
+prob_partd = dicegenpro(9, n, 3, 6, 3, 6);
+</pre><h2 id="6">Question 2</h2><pre class="codeinput"><span class="comment">%part a)</span>
+<span class="comment">%Troll will have an average health of 2.5, and fireball will have an</span>
+<span class="comment">%average damage of three, with the probability of a fireball doing more</span>
+<span class="comment">%than 3 damage at 25%.</span>
+
+troll_hitpoint = dungeondicedist(n, 4, 1);
+fireball_damage = dungeondicedist(n, 2, 2);
+</pre><h2 id="7">part b</h2><pre class="codeinput"><span class="comment">%Probability mass function</span>
+<span class="comment">%for troll hit points it is just 1/4 for hit points 1, 2, 3, 4 and 0 for</span>
+<span class="comment">%everything else</span>
+
+figure;
+subplot(2, 1, 1);
+stem(1:1:4, troll_hitpoint./n);
+title(<span class="string">"probability function for troll hit point"</span>);
+grid(<span class="string">"on"</span>);
+xlim([0  5]);
+xticks([1 2 3 4 5]);
+xticklabels([1 2 3 4 5]);
+yticks(0:0.05:0.25);
+yticklabels(0:0.05:0.25);
+xlabel(<span class="string">"troll hitpoints"</span>);
+
+
+<span class="comment">%for fireball dmg it is:</span>
+<span class="comment">% [2-|3-x|]/4 where x is = 1, 2, 3, 4; and 0 for everything else</span>
+
+subplot(2, 1, 2);
+stem(1:1:4, fireball_damage./n);
+title(<span class="string">"probability function for fireball damage"</span>);
+grid(<span class="string">"on"</span>);
+xlim([0  5]);
+xticks([1 2 3 4 5]);
+xticklabels([1 2 3 4 5]);
+yticks([0 0.25 0.5]);
+yticklabels([0 0.25 0.5]);
+xlabel(<span class="string">"Firball Damage"</span>);
+</pre><img vspace="5" hspace="5" src="ECE302_Lab1_Dipto_01.png" alt=""> <h2 id="8">part C</h2><pre class="codeinput">attackdie = [2 2];
+trolldie = [4 1];
+[Q2_partC_percentage, ~] = battlesim(attackdie, trolldie, n, 6, 6);
+</pre><h2 id="9">Part D</h2><pre class="codeinput"><span class="comment">%On average there is a 90% chance that if 5 trolls are killed, then the</span>
+<span class="comment">%last troll will survive with 1 health.</span>
+
+[~, dist_d] = battlesim(attackdie, trolldie, n, 6, 5);
+totalnumberofhealthytrolls = sum(dist_d);
+Q2_partD_average = (dist_d(1,1)+dist_d(2,1)*2)/totalnumberofhealthytrolls;
+</pre><h2 id="10">graph for remaining goblin health after 5 out of 6 goblins are dead</h2><pre class="codeinput">figure;
+title(<span class="string">"Health of the remaining goblin given that 5 goblins are dead"</span>);
+stem(1:1:4, dist_d/(sum(totalnumberofhealthytrolls)));
+grid(<span class="string">"on"</span>);
+xlim([0  5]);
+xticks(0:1:5);
+xticklabels(0:1:5);
+</pre><img vspace="5" hspace="5" src="ECE302_Lab1_Dipto_02.png" alt=""> <h2 id="11">Part E</h2><pre class="codeinput"><span class="comment">%On average Shivam does 0 damage, but if he does damage, then it would</span>
+<span class="comment">%mostly likely be around 7 to 8 damage.</span>
+shivam_weap_1 = [6, 2];
+shivam_weap_2 = [4, 1];
+dist_e = shivam(n, shivam_weap_1, shivam_weap_2)/n;
+</pre><pre class="codeinput">shivam_average = 0;
+<span class="keyword">for</span> i = 2:16
+    shivam_average = dist_e(i+1, 1)*i + shivam_average;
+<span class="keyword">end</span>
+</pre><h2 id="13">Shiva, weapon distribution</h2><pre class="codeinput">figure;
+stem(0:1:16, dist_e);
+title(<span class="string">"Distribution of Shivam's Weapon Damage"</span>);
+grid(<span class="string">"on"</span>);
+xlim([-1 18])
+xticks(0:1:16);
+xticklabels(0:1:16);
+</pre><img vspace="5" hspace="5" src="ECE302_Lab1_Dipto_03.png" alt=""> <h2 id="14">Functions</h2><pre class="codeinput"><span class="comment">%function used for all of number 1 to determine the probability of getting</span>
+<span class="comment">%a specific stat roll in a specified number of stats, a number of sides,</span>
+<span class="comment">%rolls and trials.</span>
+<span class="keyword">function</span> [probability] = dicegenpro(desiredvalue, number, rolls, sides, trials, stats)
+    <span class="comment">%values for calculating probability</span>
+    chance = 0;
+    succ = 0;
+
+    <span class="comment">%Simulation</span>
+    <span class="keyword">for</span> i = 1:number
+        <span class="keyword">for</span> z = 1:stats
+
+            <span class="comment">%Simulates the dice roll depending on the sides, rolls, and</span>
+            <span class="comment">%trials(basically if we are using regular way trials = 1,</span>
+            <span class="comment">%fun way trials = 2)</span>
+            roll1 = max(sum(randi(sides, trials, rolls), 2));
+
+            <span class="comment">%If roll1 == desiredvalue add one to chance</span>
+            <span class="keyword">if</span>(roll1 == desiredvalue)
+                chance = chance + 1;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">%If chance = the desired number ofts we to show that it</span>
+        <span class="comment">%is a successadd one  sta</span>
+        <span class="keyword">if</span>(chance == stats)
+            succ = succ + 1;
+        <span class="keyword">end</span>
+
+        <span class="comment">%reset for next stage</span>
+        chance = 0;
+    <span class="keyword">end</span>
+    probability = succ/number;
+<span class="keyword">end</span>
+
+<span class="comment">%Used for generating a distribution on fireball damage and troll health</span>
+<span class="keyword">function</span> [dist] = dungeondicedist(number, sides, rolls)
+    <span class="comment">%Initializing the distribution</span>
+    dist = zeros(sides*rolls, 1);
+    <span class="keyword">for</span> i = 1:number
+        roll1 = sum(randi(sides, 1, rolls));
+
+        <span class="comment">%add one depending on what is generated by roll 1</span>
+        dist(roll1, 1) = dist(roll1, 1)+1;
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+
+<span class="comment">%battle simulator for question 2 part c and d.</span>
+<span class="keyword">function</span> [percentage, dist] = battlesim(attackdie, foedie, n, numberoffoe, numberdead)
+    <span class="comment">%initialization of percentage and distribution</span>
+    percentage = 0;
+    dist = zeros(foedie(1,1)*foedie(1,2), 1);
+
+    <span class="comment">%simulation</span>
+    <span class="keyword">for</span> i = 1:n
+
+        <span class="comment">%attack damage calculation</span>
+        attackdmg = sum(randi(attackdie(1,1), 1, attackdie(1,2)),2);
+
+        <span class="comment">%troll damage calculation</span>
+        trolls_hp = sum(randi(foedie(1,1), numberoffoe, foedie(1,2)), 2);
+
+        <span class="comment">%determines the total number of trolls remaining</span>
+        trollrem = sum((trolls_hp-attackdmg)&gt;0);
+
+        <span class="comment">%determines if there are any survivors</span>
+        survivor = max(trolls_hp-attackdmg);
+
+        <span class="comment">%checks if the desired amount of trolls are killed</span>
+        <span class="keyword">if</span>(trollrem == (numberoffoe - numberdead))
+            percentage = percentage+1;
+
+            <span class="comment">%if there are any remaining trolls, then return the information</span>
+            <span class="comment">%about the health of the remaining troll</span>
+            <span class="keyword">if</span>(trollrem &gt; 0)
+                dist(survivor, 1) = dist(survivor, 1) + 1;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    percentage = percentage/n;
+<span class="keyword">end</span>
+
+<span class="comment">%shivam damage simulator.</span>
+<span class="keyword">function</span> [damage_dist] = shivam(n, weapon1, weapon2)
+    <span class="comment">%damage distribution array is 17 by 1 because you output 0 to 16 as</span>
+    <span class="comment">%your damage. I set the index of 1 to correspond to 0 damage</span>
+    damage_dist = zeros(weapon1(1,1)*weapon1(1,2)+weapon2(1,1)*weapon2(1,2)+1, 1);
+
+    <span class="comment">%damage counter is set to 1 because there is a possibility that you can</span>
+    <span class="comment">%roll a 0</span>
+    dmg = 1;
+    <span class="keyword">for</span> i = 1:n
+        <span class="comment">%Checks if you roll a 20 or higher</span>
+        <span class="keyword">if</span>(randi(20)&gt;=11)
+            <span class="comment">%If check is passed, then it rolls the 2d6 weapon</span>
+            dmg = 1+sum(randi(weapon1(1,1),1, weapon1(1,2)));
+
+            <span class="comment">%Another check to see if you roll an 11 or higher</span>
+
+            <span class="keyword">if</span>(randi(20)&gt;=11)
+                <span class="comment">%If the check succeeds, then the 1d4 weapon is rolled</span>
+                dmg = dmg + sum(randi(weapon2(1,1), 1, weapon2(1,2)));
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">%counting how much damage was done</span>
+        damage_dist(dmg, 1) = (damage_dist(dmg, 1)) + 1;
+
+        <span class="comment">%reset to 1</span>
+        dmg = 1;
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clear;
+close;
+
+%% Question A
+
+%a) 
+% The total number of combinations is 216, and the only combination that can
+% give 18 is rolling three 6's which is 1/216.
+n = 1e7;
+prob1t = dicegenpro(18, n, 3, 6, 1, 1);
+
+%% b)
+%Since there are three dice rolls now, the probability increases to 4/216,
+%which is shown in the demo.
+% prob_partb = dicegen(18, n, 3, 6, 3);
+
+prob_partb1 = dicegenpro(18, n, 3, 6, 3, 1);
+
+%% c)
+%It is (4/216)^6, it is hard to simulate because it would take too long
+n_c = 1e12;
+prob_partc = dicegenpro(18, n, 3, 6, 3, 6);
+
+%% d)
+%The probability of rolling the most average person using the fun way is
+%incredibly low and is around 0%
+chance = 0;
+stat = 0;
+prob_partd = dicegenpro(9, n, 3, 6, 3, 6);
+
+
+%% Question 2
+
+%part a)
+%Troll will have an average health of 2.5, and fireball will have an
+%average damage of three, with the probability of a fireball doing more
+%than 3 damage at 25%. 
+
+troll_hitpoint = dungeondicedist(n, 4, 1);
+fireball_damage = dungeondicedist(n, 2, 2);
+
+%% part b
+%Probability mass function
+%for troll hit points it is just 1/4 for hit points 1, 2, 3, 4 and 0 for
+%everything else
+
+figure;
+subplot(2, 1, 1);
+stem(1:1:4, troll_hitpoint./n);
+title("probability function for troll hit point");
+grid("on");
+xlim([0  5]);
+xticks([1 2 3 4 5]);
+xticklabels([1 2 3 4 5]);
+yticks(0:0.05:0.25);
+yticklabels(0:0.05:0.25);
+xlabel("troll hitpoints");
+
+
+%for fireball dmg it is:
+% [2-|3-x|]/4 where x is = 1, 2, 3, 4; and 0 for everything else
+
+subplot(2, 1, 2);
+stem(1:1:4, fireball_damage./n);
+title("probability function for fireball damage");
+grid("on");
+xlim([0  5]);
+xticks([1 2 3 4 5]);
+xticklabels([1 2 3 4 5]);
+yticks([0 0.25 0.5]);
+yticklabels([0 0.25 0.5]);
+xlabel("Firball Damage");
+
+%% part C
+attackdie = [2 2];
+trolldie = [4 1];
+[Q2_partC_percentage, ~] = battlesim(attackdie, trolldie, n, 6, 6);
+
+%% Part D
+%On average there is a 90% chance that if 5 trolls are killed, then the
+%last troll will survive with 1 health.
+
+[~, dist_d] = battlesim(attackdie, trolldie, n, 6, 5);
+totalnumberofhealthytrolls = sum(dist_d);
+Q2_partD_average = (dist_d(1,1)+dist_d(2,1)*2)/totalnumberofhealthytrolls;
+
+%% graph for remaining goblin health after 5 out of 6 goblins are dead
+figure;
+title("Health of the remaining goblin given that 5 goblins are dead");
+stem(1:1:4, dist_d/(sum(totalnumberofhealthytrolls)));
+grid("on");
+xlim([0  5]);
+xticks(0:1:5);
+xticklabels(0:1:5);
+
+%% Part E
+%On average Shivam does 0 damage, but if he does damage, then it would
+%mostly likely be around 7 to 8 damage.
+shivam_weap_1 = [6, 2];
+shivam_weap_2 = [4, 1];
+dist_e = shivam(n, shivam_weap_1, shivam_weap_2)/n;
+%%
+shivam_average = 0;
+for i = 2:16
+    shivam_average = dist_e(i+1, 1)*i + shivam_average;
+end
+
+%% Shiva, weapon distribution
+figure;
+stem(0:1:16, dist_e);
+title("Distribution of Shivam's Weapon Damage");
+grid("on");
+xlim([-1 18])
+xticks(0:1:16);
+xticklabels(0:1:16);
+
+%% Functions
+
+%function used for all of number 1 to determine the probability of getting
+%a specific stat roll in a specified number of stats, a number of sides,
+%rolls and trials. 
+function [probability] = dicegenpro(desiredvalue, number, rolls, sides, trials, stats)
+    %values for calculating probability
+    chance = 0;
+    succ = 0;
+
+    %Simulation
+    for i = 1:number
+        for z = 1:stats
+
+            %Simulates the dice roll depending on the sides, rolls, and
+            %trials(basically if we are using regular way trials = 1,
+            %fun way trials = 2)
+            roll1 = max(sum(randi(sides, trials, rolls), 2));
+
+            %If roll1 == desiredvalue add one to chance
+            if(roll1 == desiredvalue)
+                chance = chance + 1;
+            end
+        end
+
+        %If chance = the desired number ofts we to show that it
+        %is a successadd one  sta
+        if(chance == stats)
+            succ = succ + 1;
+        end
+
+        %reset for next stage
+        chance = 0;
+    end
+    probability = succ/number;
+end
+
+%Used for generating a distribution on fireball damage and troll health
+function [dist] = dungeondicedist(number, sides, rolls)
+    %Initializing the distribution
+    dist = zeros(sides*rolls, 1);
+    for i = 1:number
+        roll1 = sum(randi(sides, 1, rolls));
+
+        %add one depending on what is generated by roll 1
+        dist(roll1, 1) = dist(roll1, 1)+1;
+    end
+
+end
+
+%battle simulator for question 2 part c and d.
+function [percentage, dist] = battlesim(attackdie, foedie, n, numberoffoe, numberdead)
+    %initialization of percentage and distribution
+    percentage = 0;
+    dist = zeros(foedie(1,1)*foedie(1,2), 1);
+
+    %simulation
+    for i = 1:n
+
+        %attack damage calculation
+        attackdmg = sum(randi(attackdie(1,1), 1, attackdie(1,2)),2);
+
+        %troll damage calculation
+        trolls_hp = sum(randi(foedie(1,1), numberoffoe, foedie(1,2)), 2);  
+        
+        %determines the total number of trolls remaining
+        trollrem = sum((trolls_hp-attackdmg)>0);
+
+        %determines if there are any survivors
+        survivor = max(trolls_hp-attackdmg);
+
+        %checks if the desired amount of trolls are killed
+        if(trollrem == (numberoffoe - numberdead))
+            percentage = percentage+1;
+
+            %if there are any remaining trolls, then return the information
+            %about the health of the remaining troll
+            if(trollrem > 0)
+                dist(survivor, 1) = dist(survivor, 1) + 1;
+            end
+        end
+    end
+    percentage = percentage/n;
+end
+
+%shivam damage simulator.
+function [damage_dist] = shivam(n, weapon1, weapon2)
+    %damage distribution array is 17 by 1 because you output 0 to 16 as
+    %your damage. I set the index of 1 to correspond to 0 damage
+    damage_dist = zeros(weapon1(1,1)*weapon1(1,2)+weapon2(1,1)*weapon2(1,2)+1, 1);
+    
+    %damage counter is set to 1 because there is a possibility that you can
+    %roll a 0
+    dmg = 1;
+    for i = 1:n
+        %Checks if you roll a 20 or higher
+        if(randi(20)>=11)
+            %If check is passed, then it rolls the 2d6 weapon
+            dmg = 1+sum(randi(weapon1(1,1),1, weapon1(1,2)));
+
+            %Another check to see if you roll an 11 or higher
+            
+            if(randi(20)>=11)
+                %If the check succeeds, then the 1d4 weapon is rolled
+                dmg = dmg + sum(randi(weapon2(1,1), 1, weapon2(1,2)));
+            end
+        end
+        
+        %counting how much damage was done
+        damage_dist(dmg, 1) = (damage_dist(dmg, 1)) + 1;
+        
+        %reset to 1
+        dmg = 1;
+    end
+
+end
+
+
+##### SOURCE END #####
+--></body></html>
